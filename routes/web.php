@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/tracks', [\App\Http\Controllers\TrackController::class, 'index'])->name('tracks.index');
     Route::get('/tracks/create', [\App\Http\Controllers\TrackController::class, 'create'])->name('tracks.create');
-    Route::post('/tracks', [\App\Http\Controllers\TrackController::class, 'store'])->name('tracks.store');      
+    Route::post('/tracks', [\App\Http\Controllers\TrackController::class, 'store'])->name('tracks.store');
     Route::get('/tracks/{track}', [\App\Http\Controllers\TrackController::class, 'show'])->name('tracks.show');
     Route::get('/tracks/{track}/edit', [\App\Http\Controllers\TrackController::class, 'edit'])->name('tracks.edit');
     Route::put('/tracks/{track}', [\App\Http\Controllers\TrackController::class, 'update'])->name('tracks.update');
@@ -79,4 +79,4 @@ Route::middleware('auth')->group(function () {
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

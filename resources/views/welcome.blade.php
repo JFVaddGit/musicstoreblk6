@@ -1,7 +1,7 @@
 ﻿<x-app-layout>
-    <div class="min-h-screen bg-slate-50 dark:bg-slate-900">
+    <div class="min-h-screen bg-white dark:bg-slate-900">
         <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-            <div class="overflow-hidden rounded-3xl bg-white dark:bg-slate-950 shadow-xl ring-1 ring-black/5 dark:ring-white/10">
+            <div class="overflow-hidden rounded-3xl bg-white dark:bg-slate-900 shadow-xl ring-1 ring-black/5 dark:ring-white/10">
                 <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-0">
                     <div class="p-10 sm:p-16 lg:p-20">
                         <p class="text-sm font-semibold uppercase tracking-[0.24em] text-indigo-600">Welkom bij Muziekwinkel</p>
@@ -11,7 +11,7 @@
                         <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
                             <a href="{{ route('login') }}" class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Inloggen</a>
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="inline-flex items-center justify-center rounded-full bg-slate-100 px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700">Registreren</a>
+                            <a href="{{ route('register') }}" class="inline-flex items-center justify-center rounded-full bg-slate-100 px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700">Registreren</a>
                             @endif
                         </div>
                     </div>

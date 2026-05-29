@@ -8,10 +8,19 @@
     <title>{{ config('app.name', 'Freelance Marketplace') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
+    <script>
+        try {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        } catch (e) {}
+    </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col">
+<body class="font-sans antialiased bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
 
     <!-- Navbar -->
     <nav class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50 shadow-sm">
@@ -210,7 +219,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 dark:bg-slate-950 text-slate-400 dark:text-slate-500 py-8 mt-auto">
+    <footer class="bg-slate-900 dark:bg-slate-900 text-slate-400 dark:text-slate-500 py-8 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-2">
