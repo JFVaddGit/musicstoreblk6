@@ -19,6 +19,10 @@ class Album extends Model
         'image',
     ];
 
+    protected $casts = [
+        'release_year' => 'date',
+    ];
+
     public function artist()
     {
         return $this->belongsTo(Artist::class);
@@ -35,7 +39,7 @@ class Album extends Model
             return null;
         }
 
-        return asset('storage/'.$this->image);
+        return asset('storage/' . $this->image);
     }
 
     public function user()

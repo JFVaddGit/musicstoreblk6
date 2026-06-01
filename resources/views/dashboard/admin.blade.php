@@ -60,7 +60,7 @@
                             </div>
                             <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3">
                                 <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Released</p>
-                                <p class="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">{{ optional($album->release_year)->format('Y') ?? 'N/A' }}</p>
+                                <p class="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">{{ optional($album->release_year)->format('d-m-Y') ?? 'N/A' }}</p>
                             </div>
                         </div>
 
