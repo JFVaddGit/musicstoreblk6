@@ -16,6 +16,7 @@ class Album extends Model
         'genre_id',
         'artist_id',
         'user_id',
+        'image',
     ];
 
     public function artist()
@@ -26,6 +27,15 @@ class Album extends Model
     public function genre()
     {
         return $this->belongsTo(Genre::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if (! $this->image) {
+            return null;
+        }
+
+        return asset('storage/'.$this->image);
     }
 
     public function user()

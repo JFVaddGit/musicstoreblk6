@@ -26,6 +26,17 @@
             <div class="grid gap-6 xl:grid-cols-2">
                 @foreach($albums as $album)
                 <div class="overflow-hidden rounded-xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-700">
+                    @if($album->image_url)
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ $album->image_url }}" alt="{{ $album->title }}" class="w-full h-full object-cover" />
+                    </div>
+                    @else
+                    <div class="h-48 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                        <svg class="h-16 w-16 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M8 7v8m8-8v8M3 7l9-4 9 4" />
+                        </svg>
+                    </div>
+                    @endif
                     <div class="p-6">
                         <div class="flex items-start justify-between gap-4">
                             <div>

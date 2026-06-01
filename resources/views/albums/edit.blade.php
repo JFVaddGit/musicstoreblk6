@@ -16,7 +16,7 @@
         </div>
 
         <div class="bg-white shadow-sm rounded-lg p-6">
-            <form action="{{ route('albums.update', $album->id) }}" method="post" class="space-y-4">
+            <form action="{{ route('albums.update', $album->id) }}" method="post" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 @method('PUT')
 
@@ -37,7 +37,11 @@
                     </div>
                 </div>
 
-
+                @if($album->image)
+                    <div class="mb-4">
+                        <img src="{{ Storage::url($album->image) }}" alt="{{ $album->title }}" class="w-full h-64 object-cover rounded-lg shadow-sm" />
+                    </div>
+                @endif
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -80,6 +84,11 @@
                             @endforeach
                         </select>
                     </div>
+                </div>
+
+                <div>
+                    <label for="image" class="block text-sm font-medium text-gray-700">Album afbeelding</label>
+                    <input type="file" name="image" id="image" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:text-sm file:rounded file:border-0 file:bg-indigo-50 file:px-3 file:py-2" />
                 </div>
 
                 <div class="pt-4">

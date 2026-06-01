@@ -9,7 +9,14 @@
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-slate-900 overflow-hidden rounded-lg shadow p-6">
                 <p class="text-sm text-slate-500">{{ $album->artist->name ?? 'Unknown artist' }} • {{ $album->genre->name ?? 'No genre' }}</p>
-                <h1 class="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">{{ $album->title }}</h1>
+
+                @if($album->image_url)
+                    <div class="mt-4 overflow-hidden rounded-xl border bg-slate-50">
+                        <img src="{{ $album->image_url }}" alt="{{ $album->title }}" class="w-full h-72 object-cover" />
+                    </div>
+                @endif
+
+                <h1 class="mt-6 text-2xl font-bold text-slate-900 dark:text-slate-100">{{ $album->title }}</h1>
 
                 <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>

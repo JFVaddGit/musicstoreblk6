@@ -8,7 +8,7 @@
             <div class="bg-white overflow-hidden rounded-lg shadow p-6">
                 <p class="text-sm text-slate-500">Vul de gegevens in en sla op.</p>
 
-                <form action="{{ route('albums.store') }}" method="post" class="space-y-4">
+                <form action="{{ route('albums.store') }}" method="post" enctype="multipart/form-data" class="space-y-4">
                     @csrf
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -32,8 +32,8 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="release_date" class="block text-sm font-medium text-gray-700">Uitgebracht op</label>
-                            <input type="date" name="release_date" id="release_date" class="mt-1 block w-full border rounded px-3 py-2">
+                            <label for="release_year" class="block text-sm font-medium text-gray-700">Uitgebracht op</label>
+                            <input type="date" name="release_year" id="release_year" class="mt-1 block w-full border rounded px-3 py-2">
                         </div>
 
 
@@ -71,6 +71,11 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+
+                    <div>
+                        <label for="image" class="block text-sm font-medium text-gray-700">Album afbeelding</label>
+                        <input type="file" name="image" id="image" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:text-sm file:rounded file:border-0 file:bg-indigo-50 file:px-3 file:py-2" />
                     </div>
 
                     <div class="pt-4">

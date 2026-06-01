@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Album;
 use App\Models\Artist;
 use App\Models\Genre;
@@ -48,6 +49,7 @@ class AlbumController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'genre_id' => 'required|integer|exists:genres,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $album = new Album(); //NIEUW OBJECT AANMAKEN
@@ -59,6 +61,11 @@ class AlbumController extends Controller
         $album->stock = $request->input('stock');
         $album->genre_id = $request->input('genre_id');
         $album->user_id = Auth::id();
+
+        if ($request->hasFile('image')) {
+            $album->image = $request->file('image')->store('albums', 'public');
+        }
+
         $album->save();
         return redirect()->route('albums.index')->with('success', 'Album succesvol aangemaakt.');
     }
@@ -93,6 +100,7 @@ class AlbumController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'genre_id' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $album = Album::findOrFail($id);
@@ -103,6 +111,14 @@ class AlbumController extends Controller
         $album->price = $request->input('price');
         $album->stock = $request->input('stock');
         $album->genre_id = $request->input('genre_id');
+
+        if ($request->hasFile('image')) {
+            if ($album->image && Storage::disk('public')->exists($album->image)) {
+                Storage::disk('public')->delete($album->image);
+            }
+            $album->image = $request->file('image')->store('albums', 'public');
+        }
+
         $album->save();
         return redirect()->route('albums.index')->with('success', 'Album succesvol bijgewerkt.');
     }
