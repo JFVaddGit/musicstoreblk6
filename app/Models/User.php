@@ -75,6 +75,11 @@ class User extends Authenticatable
         return in_array($this->role, ['client', 'user'], true);
     }
 
+    public function albums()
+    {
+        return $this->hasMany(Album::class);
+    }
+
     public function getFullNameAttribute(): string
     {
         $first = $this->firstname ?? '';

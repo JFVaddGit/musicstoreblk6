@@ -2,7 +2,7 @@
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <div class="flex items-center gap-4">
             <a href="{{ route('dashboard') }}" class="text-lg font-semibold text-gray-800">Muziekwinkel</a>
-            <a href="{{ route('homepage') }}" class="text-sm text-gray-600 hover:text-gray-900">Home</a>
+            <a href="{{ route('welcome') }}" class="text-sm text-gray-600 hover:text-gray-900">Home</a>
             <a href="{{ url('/dashboard') }}" class="text-sm text-gray-600 hover:text-gray-900">Dashboard</a>
             <a href="{{ route('albums.index') }}" class="text-sm text-gray-600 hover:text-gray-900">Albums</a>
             <a href="{{ route('tracks.index') }}" class="text-sm text-gray-600 hover:text-gray-900">Nummers</a>

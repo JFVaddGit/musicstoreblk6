@@ -52,7 +52,7 @@
                         <option value="{{ $artist->id }}" {{ in_array($artist->id, $selectedArtists) ? 'selected' : '' }}>{{ $artist->name }}</option>
                     @endforeach
                 </select>
-                    <a href="{{ url('homepage') }}" class="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded">Reset</a>
+                    <a href="{{ url('/') }}" class="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded">Reset</a>
             </form>
 
             
@@ -63,7 +63,7 @@
                     const genreSelect = document.getElementById('genre-filter');
                     const artistSelect = document.getElementById('artist-filter');
                     
-                    let url = '{{ url("homepage") }}?';
+                    let url = '{{ url("/") }}?';
                     const params = [];
                     
                     if (genreSelect.value) {

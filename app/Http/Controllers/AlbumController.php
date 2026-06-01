@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Album;
 use App\Models\Artist;
 use App\Models\Genre;
@@ -13,13 +14,13 @@ class AlbumController extends Controller
     {
         $genres = request()->query('genres', []);
         $genres = array_map('intval', (array) $genres);
-        
+
         $albumsQuery = Album::query();
-        
+
         if (!empty($genres)) {
             $albumsQuery->whereIn('genre_id', $genres);
         }
-        
+
         $albums = $albumsQuery->get();
         return view('albums.index', compact('albums'));
     }
@@ -39,8 +40,17 @@ class AlbumController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'artist_id' => 'required|integer|exists:artists,id',
+            'release_year' => 'nullable|date',
+            'label' => 'nullable|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'genre_id' => 'required|integer|exists:genres,id',
+        ]);
 
-        $album = new Album();//NIEUW OBJECT AANMAKEN
+        $album = new Album(); //NIEUW OBJECT AANMAKEN
         $album->title = $request->input('title');
         $album->artist_id = $request->input('artist_id');
         $album->release_year = $request->input('release_year');
@@ -48,9 +58,15 @@ class AlbumController extends Controller
         $album->price = $request->input('price');
         $album->stock = $request->input('stock');
         $album->genre_id = $request->input('genre_id');
+        $album->user_id = Auth::id();
         $album->save();
         return redirect()->route('albums.index')->with('success', 'Album succesvol aangemaakt.');
-    }   
+    }
+
+    public function show(Album $album)
+    {
+        return view('albums.show', compact('album'));
+    }
 
 
 

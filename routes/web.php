@@ -21,7 +21,14 @@ Route::get('/dashboard', function () {
 
 // Role-specific dashboard views
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('/dashboard/admin', 'dashboard.admin')->name('dashboard.admin');
+    Route::get('/dashboard/admin', function () {
+        $albums = \App\Models\Album::where('user_id', auth()->id())
+            ->with(['artist', 'genre'])
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('dashboard.admin', compact('albums'));
+    })->name('dashboard.admin');
     Route::view('/dashboard/employee', 'dashboard.employee')->name('dashboard.employee');
     // Backwards-compatible names used in views
     Route::view('/dashboard/freelancer', 'dashboard.employee')->name('dashboard.freelancer');
