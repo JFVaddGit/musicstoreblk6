@@ -19,8 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'firstname',
+        'lastname',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +47,39 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isEmployee(): bool
+    {
+        return $this->role === 'employee';
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
+    }
+
+    // Backwards-compatible helpers used by views
+    public function isFreelancer(): bool
+    {
+        return in_array($this->role, ['freelancer', 'employee'], true);
+    }
+
+    public function isClient(): bool
+    {
+        return in_array($this->role, ['client', 'user'], true);
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        $first = $this->firstname ?? '';
+        $last = $this->lastname ?? '';
+        $full = trim($first . ' ' . $last);
+        return $full !== '' ? $full : ($this->name ?? '');
     }
 }

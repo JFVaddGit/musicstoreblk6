@@ -8,8 +8,25 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = auth()->user();
+    if ($user && method_exists($user, 'isAdmin') && $user->isAdmin()) {
+        return redirect()->route('dashboard.admin');
+    }
+    if ($user && method_exists($user, 'isEmployee') && $user->isEmployee()) {
+        return redirect()->route('dashboard.employee');
+    }
+
+    return view('dashboard.user');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Role-specific dashboard views
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('/dashboard/admin', 'dashboard.admin')->name('dashboard.admin');
+    Route::view('/dashboard/employee', 'dashboard.employee')->name('dashboard.employee');
+    // Backwards-compatible names used in views
+    Route::view('/dashboard/freelancer', 'dashboard.employee')->name('dashboard.freelancer');
+    Route::view('/dashboard/client', 'dashboard.user')->name('dashboard.client');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
