@@ -7,6 +7,9 @@
         <p class="mt-1 text-sm text-gray-600">
             {{ __("Update your account's profile information and email address.") }}
         </p>
+        <p class="mt-2 text-sm text-gray-600">
+            {{ __('Role:') }} <span class="font-semibold">{{ ucfirst($user->role) }}</span>
+        </p>
     </header>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
@@ -17,10 +20,18 @@
         @csrf
         @method('patch')
 
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        <div class="grid gap-6 md:grid-cols-2">
+            <div>
+                <x-input-label for="firstname" :value="__('First name')" />
+                <x-text-input id="firstname" name="firstname" type="text" class="mt-1 block w-full" :value="old('firstname', $user->firstname)" required autofocus autocomplete="given-name" />
+                <x-input-error class="mt-2" :messages="$errors->get('firstname')" />
+            </div>
+
+            <div>
+                <x-input-label for="lastname" :value="__('Last name')" />
+                <x-text-input id="lastname" name="lastname" type="text" class="mt-1 block w-full" :value="old('lastname', $user->lastname)" required autocomplete="family-name" />
+                <x-input-error class="mt-2" :messages="$errors->get('lastname')" />
+            </div>
         </div>
 
         <div>
