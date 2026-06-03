@@ -26,6 +26,24 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
+        User::factory()->create([
+            'name' => 'Jordan Employee',
+            'firstname' => 'Jordan',
+            'lastname' => 'Employee',
+            'email' => 'jordan@employee.nl',
+            'password' => 'password',
+            'role' => 'employee',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Jordan User',
+            'firstname' => 'Jordan',
+            'lastname' => 'User',
+            'email' => 'jordan@user.nl',
+            'password' => 'password',
+            'role' => 'user',
+        ]);
+
         // Call all other seeders
         $this->call([
             GenreSeeder::class,

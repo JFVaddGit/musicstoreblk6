@@ -39,8 +39,10 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
                 <a href="{{ route('albums.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition">Add Album</a>
                 <a href="{{ route('tracks.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">Add Track</a>
+                @endif
             </div>
         </div>
     </x-slot>
@@ -91,12 +93,17 @@
 
                         <div class="mt-6 flex flex-wrap gap-3">
                             <a href="{{ route('albums.show', $album) }}" class="inline-flex items-center px-3 py-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 text-sm font-medium">View</a>
+
+                            @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
                             <a href="{{ route('albums.edit', $album) }}" class="inline-flex items-center px-3 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-medium">Edit</a>
                             <form action="{{ route('albums.destroy', $album) }}" method="POST" class="inline-block" onsubmit="return confirm('Weet je zeker dat je dit album wilt verwijderen?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="inline-flex items-center px-3 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 text-sm font-medium">Delete</button>
                             </form>
+                            @elseif(auth()->check() && auth()->user()->isClient())
+                            <a href="{{ route('orders.create', ['album_id' => $album->id]) }}" class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 text-sm font-medium">Add to cart</a>
+                            @endif
                         </div>
                     </div>
                 </div>

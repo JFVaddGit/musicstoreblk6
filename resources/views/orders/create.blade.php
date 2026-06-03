@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="nl">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bestelling toevoegen</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50 text-gray-800">
     @include('partials.nav')
 
@@ -40,7 +42,7 @@
                         <select name="album_id" id="album_id" class="mt-1 block w-full border rounded px-3 py-2">
                             <option value="">-- Kies een album --</option>
                             @foreach($albums as $album)
-                                <option value="{{ $album->id }}">{{ $album->title }}</option>
+                            <option value="{{ $album->id }}" {{ request()->query('album_id') == $album->id ? 'selected' : '' }}>{{ $album->title }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -50,7 +52,7 @@
                         <select name="track_id" id="track_id" class="mt-1 block w-full border rounded px-3 py-2">
                             <option value="">-- Kies een track --</option>
                             @foreach($tracks as $track)
-                                <option value="{{ $track->id }}">{{ $track->title }}</option>
+                            <option value="{{ $track->id }}">{{ $track->title }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -61,7 +63,7 @@
                     <select name="artist_id" id="artist_id" required class="mt-1 block w-full border rounded px-3 py-2">
                         <option value="">-- Kies een artiest --</option>
                         @foreach($artists as $artist)
-                            <option value="{{ $artist->id }}">{{ $artist->name }}</option>
+                        <option value="{{ $artist->id }}">{{ $artist->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -79,4 +81,5 @@
         </div>
     </div>
 </body>
+
 </html>
