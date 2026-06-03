@@ -15,16 +15,20 @@ class OrderSeeder extends Seeder
     {
         $orders = [
             [
-                'user_id' => 1,
+                'album_id' => 1,
+                'track_id' => 1,
                 'artist_id' => 2,
-                'total_amount' => 29.98,
+                'total_price' => 29.98,
                 'status' => 'completed',
+                'order_date' => now()->toDateString(),
             ],
             [
-                'user_id' => 2,
+                'album_id' => 2,
+                'track_id' => 3,
                 'artist_id' => 1,
-                'total_amount' => 15.99,
+                'total_price' => 15.99,
                 'status' => 'pending',
+                'order_date' => now()->toDateString(),
             ],
             // Voeg hier meer orders toe indien nodig
         ];

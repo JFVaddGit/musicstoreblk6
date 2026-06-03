@@ -18,16 +18,22 @@ class TrackSeeder extends Seeder
                 'title' => 'Track 1',
                 'duration' => 210,
                 'album_id' => 1,
+                'genre_id' => 1,
+                'artist_id' => 1,
             ],
             [
                 'title' => 'Track 2',
                 'duration' => 185,
                 'album_id' => 1,
+                'genre_id' => 1,
+                'artist_id' => 1,
             ],
             [
                 'title' => 'Track 3',
                 'duration' => 240,
                 'album_id' => 2,
+                'genre_id' => 2,
+                'artist_id' => 2,
             ],
             // Voeg hier meer tracks toe indien nodig
         ];

@@ -15,18 +15,20 @@ class AlbumSeeder extends Seeder
     {
         $albums = [
             [
-                'title' => 'Album 1',
+                'title' => 'The Adventures of Jörmie & Friends',
                 'artist_id' => 1,
                 'genre_id' => 1,
-                'release_year' => '2020-01-01',
+                'user_id' => 1,
+                'release_year' => '2026-11-19',
                 'label' => 'Label A',
-                'price' => 9.99,
-                'stock' => 100,
+                'price' => 67.69,
+                'stock' => 42,
             ],
             [
                 'title' => 'Album 2',
                 'artist_id' => 2,
                 'genre_id' => 2,
+                'user_id' => 1,
                 'release_year' => '2019-01-01',
                 'label' => 'Label B',
                 'price' => 12.99,
