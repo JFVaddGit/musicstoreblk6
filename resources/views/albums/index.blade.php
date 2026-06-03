@@ -1,11 +1,44 @@
 <x-app-layout>
+    @php
+    $genresList = \App\Models\Genre::all();
+    $selectedGenres = request()->query('genres', []);
+    $selectedGenres = array_map('intval', (array) $selectedGenres);
+    @endphp
+
     <x-slot name="header">
         <div class="flex items-center justify-between gap-4">
             <div>
                 <h2 class="font-bold text-xl text-gray-800 dark:text-gray-100 leading-tight uppercase">Albums</h2>
                 <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Browse and manage all albums.</p>
             </div>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 items-center">
+                <x-dropdown align="right" width="64">
+                    <x-slot name="trigger">
+                        <button class="inline-flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg shadow hover:bg-slate-700 transition">
+                            <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                            </svg>
+                            Filter
+                        </button>
+                    </x-slot>
+                    <x-slot name="content">
+                        <form method="get" class="px-4 py-3" @click.stop>
+                            <div class="space-y-2">
+                                <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Filter by Genre</p>
+                                @foreach($genresList as $genre)
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="genres[]" value="{{ $genre->id }}" {{ in_array($genre->id, $selectedGenres) ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 cursor-pointer">
+                                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">{{ $genre->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                            <div class="mt-4 flex gap-2">
+                                <button type="submit" class="flex-1 px-3 py-2 bg-indigo-600 text-white rounded text-sm hover:bg-indigo-700">Apply</button>
+                                <a href="{{ url('albums') }}" class="flex-1 px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 text-center border border-gray-300 dark:border-gray-600 rounded">Reset</a>
+                            </div>
+                        </form>
+                    </x-slot>
+                </x-dropdown>
                 <a href="{{ route('albums.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition">Add Album</a>
                 <a href="{{ route('tracks.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">Add Track</a>
             </div>
@@ -14,33 +47,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-
-            @php
-            $genresList = \App\Models\Genre::all();
-            $selectedGenres = request()->query('genres', []);
-            $selectedGenres = array_map('intval', (array) $selectedGenres);
-            @endphp
-
-            <div class="mb-4">
-                <div class="bg-white shadow-sm rounded-lg p-4">
-                    <form method="get" class="flex flex-wrap items-center gap-4">
-                        <label class="text-sm font-medium text-gray-700">Filteren op genre</label>
-                        <div class="flex flex-wrap gap-2">
-                            @foreach($genresList as $genre)
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="genres[]" value="{{ $genre->id }}" {{ in_array($genre->id, $selectedGenres) ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 cursor-pointer">
-                                <span class="ml-2 text-sm text-gray-700">{{ $genre->name }}</span>
-                            </label>
-                            @endforeach
-                        </div>
-
-                        <div class="flex items-center gap-1">
-                            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded text-sm hover:bg-indigo-700">Toepassen</button>
-                            <a href="{{ url('albums') }}" class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900">Reset</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
             @if(isset($albums) && $albums->count())
             <div class="grid gap-6 xl:grid-cols-2">
                 @foreach($albums as $album)
