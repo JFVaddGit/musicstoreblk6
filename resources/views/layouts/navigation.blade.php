@@ -26,24 +26,9 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <!-- <x-dropdown-link :href="route('dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('albums.index')">
-                                {{ __('Albums') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('tracks.index')">
-                                {{ __('Nummers') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('genres.index')">
-                                {{ __('Genres') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('artists.index')">
-                                {{ __('Artiesten') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('orders.index')">
-                                {{ __('Bestellingen') }}
-                            </x-dropdown-link> -->
+                        <x-dropdown-link :href="route('albums.index')">
+                            {{ __('Albums') }}
+                        </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
 
@@ -99,24 +84,9 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <!-- <x-responsive-nav-link :href="route('dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('albums.index')">
-                    {{ __('Albums') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('tracks.index')">
-                    {{ __('Nummers') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('genres.index')">
-                    {{ __('Genres') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('artists.index')">
-                    {{ __('Artiesten') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('orders.index')">
-                    {{ __('Bestellingen') }}
-                </x-responsive-nav-link> -->
+            <x-responsive-nav-link :href="route('albums.index')">
+                {{ __('Albums') }}
+            </x-responsive-nav-link>
         </div>
 
         @auth

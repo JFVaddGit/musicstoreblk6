@@ -30,11 +30,6 @@
                     <div>
                         <div class="text-xs text-slate-500">Released</div>
                         <div class="font-medium">{{ optional($album->release_year)->format('d-m-Y') ?? 'N/A' }}</div>
-                        @method('delete')
-                        <button type="submit" class="px-3 py-2 rounded bg-red-600 text-white text-sm">Delete</button>
-                        </form>
-                        @endif
-                        @endauth
                     </div>
                 </div>
             </div>
