@@ -14,16 +14,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h1 class="text-2xl font-semibold">{{ $title ?? 'Album Overzicht' }}</h1>
-                    <p class="text-sm text-gray-500">Beheer je albums hier.</p>
-                </div>
-                <div class="flex gap-2">
-                    <a href="{{ route('albums.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded shadow hover:bg-indigo-700">Nieuwe album</a>
-                    <a href="{{ route('tracks.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded shadow hover:bg-green-700">Nieuw nummer</a>
-                </div>
-            </div>
 
             @php
             $genresList = \App\Models\Genre::all();
