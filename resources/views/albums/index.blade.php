@@ -3,6 +3,7 @@
     $genresList = \App\Models\Genre::all();
     $selectedGenres = request()->query('genres', []);
     $selectedGenres = array_map('intval', (array) $selectedGenres);
+    $search = request()->query('search', '');
     @endphp
 
     <x-slot name="header">
@@ -12,6 +13,19 @@
                 <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Browse and manage all albums.</p>
             </div>
             <div class="flex flex-wrap gap-2 items-center">
+                <form method="get" action="{{ route('albums.index') }}" class="flex items-center gap-2">
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ $search }}"
+                        placeholder="Search albums or artist"
+                        class="w-72 rounded-lg border border-slate-400 bg-white px-3 py-2 text-sm text-slate-700 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" />
+                    @foreach($selectedGenres as $genreId)
+                    <input type="hidden" name="genres[]" value="{{ $genreId }}" />
+                    @endforeach
+                    <button type="submit" class="inline-flex items-center px-4 py-2 rounded-lg border border-slate-400 bg-white text-slate-700 hover:bg-slate-50 text-sm">Search</button>
+                </form>
+                
                 <x-dropdown align="right" width="64">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg shadow hover:bg-slate-700 transition">
@@ -23,6 +37,7 @@
                     </x-slot>
                     <x-slot name="content">
                         <form method="get" class="px-4 py-3" @click.stop>
+                            <input type="hidden" name="search" value="{{ $search }}" />
                             <div class="space-y-2">
                                 <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Filter by Genre</p>
                                 @foreach($genresList as $genre)

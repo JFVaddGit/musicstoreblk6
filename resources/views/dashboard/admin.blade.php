@@ -5,85 +5,84 @@
                 <h2 class="font-bold text-xl text-gray-800 dark:text-gray-100 leading-tight uppercase">
                     ADMIN DASHBOARD
                 </h2>
-                <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Manage albums you created and access admin tools.</p>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Quick links to all admin indexes and tools.</p>
             </div>
-            <a href="{{ route('albums.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition">
-                {{ __('Add Album') }}
-            </a>
         </div>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @if($albums->isEmpty())
-            <div class="overflow-hidden rounded-lg bg-white dark:bg-slate-900 shadow">
-                <div class="p-6 text-slate-700 dark:text-slate-100">
-                    <p class="text-lg font-semibold">No albums created yet.</p>
-                    <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Click the Add Album button to create your first album.</p>
-                </div>
-            </div>
-            @else
-            <div class="grid gap-6 xl:grid-cols-2">
-                @foreach($albums as $album)
-                <div class="overflow-hidden rounded-xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-700">
-                    @if($album->image_url)
-                    <div class="h-48 overflow-hidden">
-                        <img src="{{ $album->image_url }}" alt="{{ $album->title }}" class="w-full h-full object-cover" />
-                    </div>
-                    @else
-                    <div class="h-48 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                        <svg class="h-16 w-16 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M8 7v8m8-8v8M3 7l9-4 9 4" />
-                        </svg>
-                    </div>
-                    @endif
+            <div class="grid gap-6 xl:grid-cols-3">
+                <a href="{{ route('albums.index') }}" class="group block overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition">
                     <div class="p-6">
-                        <div class="flex items-start justify-between gap-4">
-                            <div>
-                                <p class="text-sm text-indigo-600 uppercase tracking-wide font-semibold">Album</p>
-                                <h3 class="mt-2 text-xl font-semibold text-slate-900 dark:text-slate-100">{{ $album->title }}</h3>
-                                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $album->artist->name ?? 'Unknown artist' }}</p>
-                            </div>
-                            <span class="inline-flex items-center rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-xs font-semibold uppercase dark:bg-slate-800 dark:text-slate-200">
-                                {{ $album->genre->name ?? 'No genre' }}
-                            </span>
-                        </div>
-
-                        <div class="mt-4 grid gap-3 sm:grid-cols-3">
-                            <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3">
-                                <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Price</p>
-                                <p class="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">€{{ number_format($album->price, 2) }}</p>
-                            </div>
-                            <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3">
-                                <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Stock</p>
-                                <p class="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">{{ $album->stock }}</p>
-                            </div>
-                            <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3">
-                                <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Released</p>
-                                <p class="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">{{ optional($album->release_year)->format('d-m-Y') ?? 'N/A' }}</p>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 flex flex-wrap gap-3">
-                            <a href="{{ route('albums.show', $album) }}" class="inline-flex items-center px-3 py-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 text-sm font-medium">
-                                {{ __('View') }}
-                            </a>
-                            <a href="{{ route('albums.edit', $album) }}" class="inline-flex items-center px-3 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-medium">
-                                {{ __('Edit') }}
-                            </a>
-                            <form action="{{ route('albums.destroy', $album) }}" method="post" class="inline-block" onsubmit="return confirm('Delete this album?');">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="inline-flex items-center px-3 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 text-sm font-medium">
-                                    {{ __('Delete') }}
-                                </button>
-                            </form>
+                        <p class="text-sm uppercase tracking-wide text-indigo-600 font-semibold">Albums</p>
+                        <h3 class="mt-3 text-2xl font-semibold text-slate-900 dark:text-slate-100">Manage Albums</h3>
+                        <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">View, edit, and organize album records across the catalog.</p>
+                        <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-indigo-600 group-hover:text-indigo-700">
+                            <span>Go to Albums</span>
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
                         </div>
                     </div>
-                </div>
-                @endforeach
+                </a>
+
+                <a href="{{ route('tracks.index') }}" class="group block overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition">
+                    <div class="p-6">
+                        <p class="text-sm uppercase tracking-wide text-emerald-600 font-semibold">Tracks</p>
+                        <h3 class="mt-3 text-2xl font-semibold text-slate-900 dark:text-slate-100">Manage Tracks</h3>
+                        <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">Browse and update individual tracks attached to albums.</p>
+                        <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-emerald-600 group-hover:text-emerald-700">
+                            <span>Go to Tracks</span>
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{{ route('artists.index') }}" class="group block overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition">
+                    <div class="p-6">
+                        <p class="text-sm uppercase tracking-wide text-pink-600 font-semibold">Artists</p>
+                        <h3 class="mt-3 text-2xl font-semibold text-slate-900 dark:text-slate-100">Manage Artists</h3>
+                        <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">Edit artist details and keep your catalog linked correctly.</p>
+                        <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-pink-600 group-hover:text-pink-700">
+                            <span>Go to Artists</span>
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{{ route('genres.index') }}" class="group block overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition">
+                    <div class="p-6">
+                        <p class="text-sm uppercase tracking-wide text-violet-600 font-semibold">Genres</p>
+                        <h3 class="mt-3 text-2xl font-semibold text-slate-900 dark:text-slate-100">Manage Genres</h3>
+                        <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">Create and update genre categories for the store.</p>
+                        <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-violet-600 group-hover:text-violet-700">
+                            <span>Go to Genres</span>
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{{ route('orders.index') }}" class="group block overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition">
+                    <div class="p-6">
+                        <p class="text-sm uppercase tracking-wide text-amber-600 font-semibold">Orders</p>
+                        <h3 class="mt-3 text-2xl font-semibold text-slate-900 dark:text-slate-100">Manage Orders</h3>
+                        <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">Review recent orders and manage the order pipeline.</p>
+                        <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-amber-600 group-hover:text-amber-700">
+                            <span>Go to Orders</span>
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
             </div>
-            @endif
         </div>
     </div>
 </x-app-layout>

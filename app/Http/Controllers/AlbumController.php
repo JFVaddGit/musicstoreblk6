@@ -15,15 +15,25 @@ class AlbumController extends Controller
     {
         $genres = request()->query('genres', []);
         $genres = array_map('intval', (array) $genres);
+        $search = request()->query('search', '');
 
         $albumsQuery = Album::query();
+
+        if (!empty($search)) {
+            $albumsQuery->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhereHas('artist', function ($artistQuery) use ($search) {
+                        $artistQuery->where('name', 'like', "%{$search}%");
+                    });
+            });
+        }
 
         if (!empty($genres)) {
             $albumsQuery->whereIn('genre_id', $genres);
         }
 
         $albums = $albumsQuery->get();
-        return view('albums.index', compact('albums'));
+        return view('albums.index', compact('albums', 'search'));
     }
 
 
