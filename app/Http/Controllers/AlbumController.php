@@ -24,7 +24,8 @@ class AlbumController extends Controller
                 $query->where('title', 'like', "%{$search}%")
                     ->orWhereHas('artist', function ($artistQuery) use ($search) {
                         $artistQuery->where('name', 'like', "%{$search}%");
-                    });
+                    })
+                    ->orWhereYear('release_year', $search);
             });
         }
 
