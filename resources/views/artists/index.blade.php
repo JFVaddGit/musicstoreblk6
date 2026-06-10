@@ -1,25 +1,16 @@
-<!doctype html>
-<html lang="nl">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? 'Artiesten' }}</title>
-    <!-- Tailwind CDN (quick) - replace with your compiled CSS in production -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800">
-    @include('partials.nav')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+            {{ $title ?? 'Artists overview' }}
+        </h2>
+                    <div>
+                <a href="{{ route('artists.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded shadow hover:bg-indigo-700">New Artist</a>
+            </div>
+    </x-slot>
 
+<body class="bg-gray-50 text-gray-800">
+    
     <div class="max-w-6xl mx-auto py-8 px-4">
-        <div class="flex items-center justify-between mb-6">
-            <div>
-                <h1 class="text-2xl font-semibold">{{ $title ?? 'Artiesten overzicht' }}</h1>
-                <p class="text-sm text-gray-500">Beheer artiesten hier.</p>
-            </div>
-            <div>
-                <a href="{{ route('artists.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded shadow hover:bg-indigo-700">Nieuwe artiest</a>
-            </div>
-        </div>
 
         <div class="bg-white shadow-sm rounded-lg overflow-hidden">
             @if(isset($artists) && $artists->count())
@@ -59,4 +50,4 @@
         </div>
     </div>
 </body>
-</html>
+</x-app-layout>

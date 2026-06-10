@@ -28,7 +28,13 @@
                 </div>
                 <div class="p-6">
                     <p class="text-sm text-slate-500 dark:text-slate-400">{{ $album->artist->name ?? 'Unknown artist' }} • {{ $album->genre->name ?? 'No genre' }}</p>
-                    <h1 class="mt-6 text-2xl font-bold text-slate-900 dark:text-slate-100">{{ $album->title }}</h1>
+                    <h1 class="mt-6 text-2xl font-bold text-slate-900 dark:text-slate-100">{{ $album->title }}</h1> <!-- button to edit the album, only for admin and employee -->
+                    @if(auth()->check() && auth()->user()->isAdmin())
+                    <div class="mt-4">
+                        <a href="{{ route('albums.edit', $album) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-sm font-medium">Edit Album</a>
+                    </div>
+                    @endif
+                    
 
                     <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
@@ -56,7 +62,10 @@
                             <span class="inline-flex items-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3 py-1 text-sm font-semibold">
                                 {{ $album->tracks->count() }} track{{ $album->tracks->count() === 1 ? '' : 's' }}
                             </span>
+                            <!-- auth so only admin and employee can see the add track button -->
+                            @if(auth()->check() && auth()->user()->isAdmin())
                             <a href="{{ route('tracks.create', ['album_id' => $album->id]) }}" class="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-semibold">Add Track</a>
+                            @endif
                         </div>
                     </div>
 

@@ -7,6 +7,10 @@
                     <a href="{{ auth()->check() ? (Auth::user()->isAdmin() ? route('dashboard.admin') : (Auth::user()->isFreelancer() ? route('dashboard.freelancer') : route('dashboard.client'))) : '/' }}" class="flex items-center gap-3">
                         <x-application-logo class="h-9 w-auto fill-current text-gray-800" />
                         <span class="text-lg font-semibold text-gray-800">Music Store</span>
+                        <!-- line that welcomes user upon user name and role -->
+                        @auth
+                        <span class="text-sm text-gray-500">Welcome, {{ Auth::user()->firstname }} ({{ Auth::user()->role }})</span>
+                        @endauth  
                     </a>
                 </div>
             </div>
