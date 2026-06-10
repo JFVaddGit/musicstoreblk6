@@ -1,20 +1,23 @@
-<!doctype html>
-<html lang="nl">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Album bewerken</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800">
-    @include('partials.nav')
+<x-app-layout>
+    @php
+    $genresList = \App\Models\Genre::all();
+    $selectedGenres = request()->query('genres', []);
+    $selectedGenres = array_map('intval', (array) $selectedGenres);
+    $search = request()->query('search', '');
+    @endphp
 
-    <div class="max-w-3xl mx-auto py-8 px-4">
-        <div class="mb-6">
-            <h1 class="text-2xl font-semibold">Album bewerken</h1>
-            <p class="text-sm text-gray-500">Pas de albumgegevens aan en sla op.</p>
+    <x-slot name="header">
+        <div class="flex justify-center">
+            <div class="text-center">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+                    {{ $album->title }}
+                </h2>
+            </div>
         </div>
+    </x-slot>
 
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-3xl mx-auto py-8 px-4">
         <div class="bg-white shadow-sm rounded-lg p-6">
             <form action="{{ route('albums.update', $album->id) }}" method="post" enctype="multipart/form-data" class="space-y-4">
                 @csrf
@@ -93,10 +96,10 @@
 
                 <div class="pt-4">
                     <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Opslaan</button>
-                    <a href="{{ route('albums.index') }}" class="ml-3 text-sm text-gray-600">Annuleren</a>
+                    <a href="{{ route('albums.show', $album) }}" class="ml-3 text-sm text-gray-600">Annuleren</a>
                 </div>
             </form>
         </div>
     </div>
 </body>
-</html>
+</x-app-layout>

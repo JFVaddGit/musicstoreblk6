@@ -78,7 +78,7 @@ class AlbumController extends Controller
         }
 
         $album->save();
-        return redirect()->route('albums.index')->with('success', 'Album succesvol aangemaakt.');
+        return redirect()->route('albums.show', $album)->with('success', 'Album succesvol aangemaakt.');
     }
 
     public function show(Album $album)
@@ -131,7 +131,7 @@ class AlbumController extends Controller
         }
 
         $album->save();
-        return redirect()->route('albums.index')->with('success', 'Album succesvol bijgewerkt.');
+        return redirect()->route('albums.show', $album)->with('success', 'Album edited successfully.');
     }
 
 
@@ -142,6 +142,6 @@ class AlbumController extends Controller
         $album = Album::findOrFail($id);
         $album->delete();
 
-        return redirect()->route('albums.index')->with('success', 'Album succesvol verwijderd.');
+        return redirect()->route('albums.index')->with('success', 'Album deleted successfully.');
     }
 }

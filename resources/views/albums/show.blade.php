@@ -10,7 +10,7 @@
             <div class="flex items-center gap-2 mb-4 text-sm text-slate-600 dark:text-slate-300">
                 <a href="{{ route('albums.index') }}" class="inline-flex items-center gap-2 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white">
                     <span class="text-xl leading-none">&larr;</span>
-                    <span>Back</span>
+                    <span>Back to Albums</span>
                 </a>
             </div>
 
@@ -47,14 +47,17 @@
                 </div>
 
                 <div class="border-t border-slate-200 dark:border-slate-700 p-6">
-                    <div class="flex items-center justify-between gap-4 mb-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
                         <div>
                             <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Tracks</h2>
                             <p class="text-sm text-slate-500 dark:text-slate-400">All tracks included on this album.</p>
                         </div>
-                        <span class="inline-flex items-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3 py-1 text-sm font-semibold">
-                            {{ $album->tracks->count() }} track{{ $album->tracks->count() === 1 ? '' : 's' }}
-                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex items-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3 py-1 text-sm font-semibold">
+                                {{ $album->tracks->count() }} track{{ $album->tracks->count() === 1 ? '' : 's' }}
+                            </span>
+                            <a href="{{ route('tracks.create', ['album_id' => $album->id]) }}" class="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-semibold">Add Track</a>
+                        </div>
                     </div>
 
                     @if($album->tracks->isEmpty())
@@ -71,6 +74,9 @@
                                     <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Duration</th>
                                     <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Genre</th>
                                     <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Artist</th>
+                                    @if(auth()->check() && auth()->user()->isAdmin())
+                                    <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Actions</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
@@ -81,6 +87,18 @@
                                     <td class="px-4 py-3 text-sm text-slate-600 dark:text-slate-300">{{ $track->duration ?? '—' }}</td>
                                     <td class="px-4 py-3 text-sm text-slate-600 dark:text-slate-300">{{ $track->genre->name ?? 'Unknown' }}</td>
                                     <td class="px-4 py-3 text-sm text-slate-600 dark:text-slate-300">{{ $track->artist->name ?? 'Unknown' }}</td>
+                                    @if(auth()->check() && auth()->user()->isAdmin())
+                                    <td class="px-4 py-3 text-right text-sm">
+                                        <div class="inline-flex items-center gap-2">
+                                            <a href="{{ route('tracks.edit', $track) }}" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Edit</a>
+                                            <form action="{{ route('tracks.destroy', $track) }}" method="POST" class="inline-flex" onsubmit="return confirm('Are you sure you want to delete this track?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900 text-sm font-medium">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>

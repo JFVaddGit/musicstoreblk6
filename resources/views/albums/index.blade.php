@@ -14,6 +14,7 @@
             </div>
             <div class="flex flex-wrap gap-2 items-center">
                 <form method="get" action="{{ route('albums.index') }}" class="flex items-center gap-2">
+                    <!-- input for searching albums by title or artist name, keep the selected genres in the query when searching -->
                     <input
                         type="text"
                         name="search"
@@ -82,7 +83,7 @@
                     <div class="p-6">
                         <div class="flex items-start justify-between gap-4">
                             <div>
-                                <p class="text-sm text-indigo-600 uppercase tracking-wide font-semibold">Album</p>
+                                <p class="text-sm text-indigo-600 uppercase tracking-wide font-semibold">{{ $album->tracks->count() }} tracks</p>
                                 <h3 class="mt-2 text-xl font-semibold text-slate-900 dark:text-slate-100">{{ $album->title }}</h3>
                                 <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $album->artist->name ?? 'Unknown artist' }}</p>
                             </div>
