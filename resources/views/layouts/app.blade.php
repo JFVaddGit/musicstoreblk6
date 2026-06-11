@@ -56,6 +56,9 @@
                         </ul>
                     </nav>
 
+                    <!-- separation line -->
+                    <hr class="my-4">
+
                     <!-- filters -->
                     @if(request()->routeIs('albums.index'))
                     <div class="p-6">
@@ -80,7 +83,35 @@
                     @endif
 
                     <!-- dark separation line -->
-                    <hr class="my-4">
+
+                    @auth
+                    <div class="p-2 pt-4 pb-1 border-t border-gray-200">
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800">{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }}</div>
+                            <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                        </div>
+
+                        <div class="mt-3 space-y-1">
+                            <x-responsive-nav-link :href="route('profile.edit')">
+                                {{ __('Profile') }}
+                            </x-responsive-nav-link>
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <x-responsive-nav-link :href="route('logout')" class="text-red-600 hover:text-red-700"
+                                    onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-responsive-nav-link>
+                            </form>
+                        </div>
+                    </div>
+                    @else
+                    <div class="pt-4 pb-1 border-t border-gray-200 px-4 flex gap-3">
+                        <a href="{{ route('login') }}" class="text-gray-600 font-medium">Log in</a>
+                        <a href="{{ route('register') }}" class="text-indigo-600 font-medium">Sign up</a>
+                    </div>
+                    @endauth
                 </aside>
 
 

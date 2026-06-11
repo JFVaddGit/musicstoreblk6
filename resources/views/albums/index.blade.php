@@ -71,7 +71,7 @@
             @if(isset($albums) && $albums->count())
             <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 @foreach($albums as $album)
-                <div class="overflow-hidden rounded-xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="overflow-hidden rounded-xl bg-white dark:bg-slate-900 shadow-sm border border-slate-300 dark:border-slate-700">
                     @if($album->image_url)
                     <div class="h-48 overflow-hidden">
                         <img src="{{ $album->image_url }}" alt="{{ $album->title }}" class="w-full h-full object-cover" />
@@ -90,21 +90,21 @@
                                 <h3 class="mt-2 text-xl font-semibold text-slate-900 dark:text-slate-100">{{ $album->title }}</h3>
                                 <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $album->artist->name ?? 'Unknown artist' }}</p>
                             </div>
-                            <span class="inline-flex items-center rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-xs font-semibold uppercase dark:bg-slate-800 dark:text-slate-200">
+                            <span class="inline-flex items-center rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-xs font-semibold uppercase dark:bg-slate-800 dark:text-slate-200 ">
                                 {{ $album->genre->name ?? 'No genre' }}
                             </span>
                         </div>
 
-                        <div class="mt-4 grid gap-3 sm:grid-cols-3">
-                            <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3">
+                        <div class="mt-4 grid gap-3 sm:grid-cols-3 ">
+                            <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3 border-slate-300 dark:border-slate-700 border">
                                 <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Price</p>
                                 <p class="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">€{{ number_format(floatval($album->price), 2, ',', '.') }}</p>
                             </div>
-                            <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3">
+                            <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3 border-slate-300 dark:border-slate-700 border">
                                 <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Stock</p>
                                 <p class="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">{{ $album->stock }}</p>
                             </div>
-                            <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3">
+                            <div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-3 border-slate-300 dark:border-slate-700 border">
                                 <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Released</p>
                                 <p class="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">{{ optional($album->release_year)->format('d-m-Y') ?? 'N/A' }}</p>
                             </div>

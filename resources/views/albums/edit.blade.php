@@ -46,7 +46,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="release_year" class="block text-sm font-medium text-gray-700">Release Year</label>
-                            <input type="date" name="release_year" id="release_year" value="{{ $album->release_year }}" class="mt-1 block w-full border rounded px-3 py-2">
+                            <input type="date" name="release_year" id="release_year" value="{{ optional($album->release_year)->format('Y-m-d') }}" class="mt-1 block w-full border rounded px-3 py-2">
                         </div>
 
 
