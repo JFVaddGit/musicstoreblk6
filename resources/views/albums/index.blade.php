@@ -63,10 +63,13 @@
         </div>
     </x-slot>
 
+
+
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             @if(isset($albums) && $albums->count())
-            <div class="grid gap-6 xl:grid-cols-2">
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 @foreach($albums as $album)
                 <div class="overflow-hidden rounded-xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-700">
                     @if($album->image_url)

@@ -1,19 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-            {{ $album->title }}
-        </h2>
+        <div class="relative flex items-center">
+            <a href="{{ route('albums.index') }}"
+            class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                &larr; Back to Albums
+            </a>
+
+            <h2 class="absolute left-1/2 -translate-x-1/2 font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+                {{ $album->title }}
+            </h2>
+        </div>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex items-center gap-2 mb-4 text-sm text-slate-600 dark:text-slate-300">
-                <a href="{{ route('albums.index') }}" class="inline-flex items-center gap-2 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white">
-                    <span class="text-xl leading-none">&larr;</span>
-                    <span>Back to Albums</span>
-                </a>
-            </div>
-
             <div class="bg-white dark:bg-slate-900 overflow-hidden rounded-lg shadow">
                 <div class="relative h-72 bg-slate-100 dark:bg-slate-800 overflow-hidden">
                     @if($album->image_url)
