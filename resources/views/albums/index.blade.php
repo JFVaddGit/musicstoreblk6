@@ -127,7 +127,18 @@
                                 <button type="submit" class="inline-flex items-center px-3 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 text-sm font-medium">Delete</button>
                             </form>
                             @elseif(auth()->check() && auth()->user()->isClient())
-                            <a href="{{ route('orders.create', ['album_id' => $album->id]) }}" class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 text-sm font-medium">Add to cart</a>
+                            <!-- <a href="{{ route('orders.create', ['album_id' => $album->id]) }}" class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 text-sm font-medium">Add to cart</a> -->
+                            <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden"
+                                    name="album_id"
+                                    value="{{ $album->id }}">
+
+                                <button type="submit"
+                                    class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 text-sm font-medium">
+                                    Add to cart
+                                </button>
+                            </form>
                             @endif
                         </div>
                     </div>

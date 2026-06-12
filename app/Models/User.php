@@ -87,4 +87,9 @@ class User extends Authenticatable
         $full = trim($first . ' ' . $last);
         return $full !== '' ? $full : ($this->name ?? '');
     }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }

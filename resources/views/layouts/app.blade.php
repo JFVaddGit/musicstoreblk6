@@ -49,6 +49,12 @@
                             <li>
                                 <a href="{{ route('orders.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('orders.*') ? 'font-bold' : '' }}">Orders</a>
                             </li>
+
+
+                            
+                            <li>
+                                <a href="{{ route('cart.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('cart.*') ? 'font-bold' : '' }}">Cart</a>
+                            </li>
                         </ul>
                     </nav>
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,7 +43,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// TRACKS
+// ALBUMS
 Route::middleware('auth')->group(function () {
     Route::get('/albums', [\App\Http\Controllers\AlbumController::class, 'index'])->name('albums.index');
     Route::get('/albums/create', [\App\Http\Controllers\AlbumController::class, 'create'])->name('albums.create');
@@ -100,6 +101,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
 });
 
+
+// CART
+Route::middleware('auth')->group(function () {
+    Route::post('/cart', [CartController::class, 'store'])
+        ->name('cart.store');
+
+    Route::get('/cart', [CartController::class, 'index'])
+        ->name('cart.index');
+
+    Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])
+        ->name('cart.destroy');
+});
 
 
 
