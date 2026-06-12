@@ -43,16 +43,12 @@
                             <li>
                                 <a href="{{ route('artists.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('artists.*') ? 'font-bold' : '' }}">Artists</a>
                             </li>
-
-                            <!-- auth for genres and orders only show if user is admin -->
-                            <!-- @if(auth()->user() && auth()->user()->is_admin) -->
                             <li>
                                 <a href="{{ route('genres.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('genres.*') ? 'font-bold' : '' }}">Genres</a>
                             </li>
                             <li>
                                 <a href="{{ route('orders.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('orders.*') ? 'font-bold' : '' }}">Orders</a>
                             </li>
-                            <!-- @endif -->
                         </ul>
                     </nav>
 

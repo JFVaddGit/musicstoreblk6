@@ -16,7 +16,16 @@
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden rounded-lg shadow p-6">
                 <p class="text-sm text-slate-500">Fill in the details below to create a new album.</p>
-
+ 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <form action="{{ route('albums.store') }}" method="post" enctype="multipart/form-data" class="space-y-4">
                     @csrf
 

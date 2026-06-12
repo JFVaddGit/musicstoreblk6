@@ -10,8 +10,14 @@
         <div class="flex items-center justify-between gap-4">
             <div>
                 <h2 class="font-bold text-xl text-gray-800 dark:text-gray-100 leading-tight uppercase">Albums</h2>
-                <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Browse and manage all albums.</p>
+                @if (auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
+                <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Create, edit, and manage all albums.</p>
+                @else
+                <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Browse all albums.</p>
+                @endif
             </div>
+
+
             <div class="flex flex-wrap gap-2 items-center">
                 <form method="get" action="{{ route('albums.index') }}" class="flex items-center gap-2">
                     <!-- input for searching albums by title or artist name, keep the selected genres in the query when searching -->
@@ -56,8 +62,8 @@
                     </x-slot>
                 </x-dropdown>
                 @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
-                <a href="{{ route('albums.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition">Add Album</a>
-                <a href="{{ route('tracks.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">Add Track</a>
+                <a href="{{ route('albums.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition">ADD ALBUM</a>
+                <a href="{{ route('tracks.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">ADD TRACK</a>
                 @endif
             </div>
         </div>
