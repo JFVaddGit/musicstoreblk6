@@ -41,12 +41,14 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $artist->country ?? '-' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $artist->bio ?? '-' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
                             <a href="{{ route('artists.edit', $artist->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
                             <form action="{{ route('artists.destroy', $artist->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this artist?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

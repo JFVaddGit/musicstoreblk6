@@ -10,7 +10,10 @@
                 @endif
             </div>
             <div class="flex gap-2">
-                <a href="{{ route('genres.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">ADD GENRE</a>
+                @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
+                <a href="{{ route('genres.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
+                    ADD GENRE</a>
+                @endif
             </div>
         </div>
     </x-slot>
@@ -35,12 +38,14 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $genre->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $genre->description ?? '-' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
                                 <a href="{{ route('genres.edit', $genre->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
                                 <form action="{{ route('genres.destroy', $genre->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this genre?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
                                 </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -49,7 +54,9 @@
                 @else
                 <div class="p-8 text-center">
                     <p class="text-gray-600 mb-4">There are no genres added yet.</p>
+                    @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
                     <a href="{{ route('genres.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Add a genre</a>
+                    @endif
                 </div>
                 @endif
             </div>

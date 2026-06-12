@@ -37,24 +37,29 @@
                             <li>
                                 <a href="{{ route('albums.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('albums.*') ? 'font-bold' : '' }}">Albums</a>
                             </li>
+
                             <li>
                                 <a href="{{ route('tracks.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('tracks.*') ? 'font-bold' : '' }}">Tracks</a>
                             </li>
+
                             <li>
                                 <a href="{{ route('artists.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('artists.*') ? 'font-bold' : '' }}">Artists</a>
                             </li>
+
                             <li>
                                 <a href="{{ route('genres.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('genres.*') ? 'font-bold' : '' }}">Genres</a>
                             </li>
-                            <li>
-                                <a href="{{ route('orders.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('orders.*') ? 'font-bold' : '' }}">Orders</a>
-                            </li>
 
 
-                            
                             <li>
                                 <a href="{{ route('cart.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('cart.*') ? 'font-bold' : '' }}">Cart</a>
                             </li>
+
+                            @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
+                            <li>
+                                <a href="{{ route('orders.index') }}" class="block text-gray-700 hover:text-gray-900 {{ request()->routeIs('orders.*') ? 'font-bold' : '' }}">Orders</a>
+                            </li>
+                            @endif
                         </ul>
                     </nav>
 

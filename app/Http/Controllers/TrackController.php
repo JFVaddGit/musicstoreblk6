@@ -12,9 +12,37 @@ class TrackController extends Controller
 {
     public function index()
     {
-        $tracks = Track::with('album', 'artist', 'genre')->get();
-        return view('tracks.index', compact('tracks'));
+        $genres = array_map(
+            'intval',
+            (array) request()->query('genres', [])
+        );
+
+        $search = request()->query('search', '');
+
+        $tracksQuery = Track::query();
+
+        if (!empty($search)) {
+            $tracksQuery->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhereHas('artist', function ($artistQuery) use ($search) {
+                        $artistQuery->where('name', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        if (!empty($genres)) {
+            $tracksQuery->whereIn('genre_id', $genres);
+        }
+
+        $tracks = $tracksQuery->get();
+
+        return view('tracks.index', compact('tracks', 'search'));
     }
+
+
+
+
+
 
     public function create(Request $request)
     {

@@ -30,7 +30,8 @@
                     @foreach($selectedGenres as $genreId)
                     <input type="hidden" name="genres[]" value="{{ $genreId }}" />
                     @endforeach
-                    <button type="submit" class="inline-flex items-center px-4 py-2 rounded-lg border border-slate-400 bg-white text-slate-700 hover:bg-slate-50 text-sm">Search</button>
+                    <button type="submit" class="inline-flex items-center px-4 py-2 rounded-lg border border-slate-400 bg-white text-slate-700 hover:bg-slate-50 text-sm">
+                        Search</button>
                 </form>
                 
                 <x-dropdown align="right" width="64">
@@ -42,6 +43,7 @@
                             Filter
                         </button>
                     </x-slot>
+
                     <x-slot name="content">
                         <form method="get" class="px-4 py-3" @click.stop>
                             <input type="hidden" name="search" value="{{ $search }}" />
@@ -61,6 +63,7 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                
                 @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isEmployee()))
                 <a href="{{ route('albums.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition">ADD ALBUM</a>
                 <a href="{{ route('tracks.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">ADD TRACK</a>
